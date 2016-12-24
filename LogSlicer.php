@@ -20,6 +20,7 @@ class LogSlicer
     private $_file;
     private $_nbLinesPerPage;
     private $_reverse;
+    private $_nbLines;
 
     public function __construct()
     {
@@ -50,10 +51,15 @@ class LogSlicer
         return $this;
     }
 
+    public function getNbPages()
+    {
+        return ceil($this->getNbLines() / $this->_nbLinesPerPage);
+    }
+
     public function getPage($n)
     {
 
-        $nbLines = FileTool::getNbLines($this->_file);
+        $nbLines = $this->getNbLines();
         $nbPages = ceil($nbLines / $this->_nbLinesPerPage);
         if ($n < 1) {
             $n = 1;
@@ -93,35 +99,16 @@ class LogSlicer
     }
 
 
-    public function getPageForward($n)
+
+
+    //------------------------------------------------------------------------------/
+    //
+    //------------------------------------------------------------------------------/
+    private function getNbLines()
     {
-
-        $nbLines = FileTool::getNbLines($this->_file);
-        $nbPages = ceil($nbLines / $this->_nbLinesPerPage);
-        if ($n < 1) {
-            $n = 1;
+        if (null === $this->_nbLines) {
+            $this->_nbLines = FileTool::getNbLines($this->_file);
         }
-        if ($n > $nbPages) {
-            $n = $nbPages;
-        }
-
-        $offset = ($n - 1) * $this->_nbLinesPerPage;
-        $handle = fopen($this->_file, "r");
-        $linecount = 0;
-        $g = 1;
-        ob_start();
-        while (!feof($handle)) {
-            $line = fgets($handle);
-            if ($linecount >= $offset) {
-                echo $line;
-                $g++;
-                if ($g > $this->_nbLinesPerPage) {
-                    break;
-                }
-            }
-            $linecount++;
-        }
-        fclose($handle);
-        return trim(ob_get_clean());
+        return $this->_nbLines;
     }
 }

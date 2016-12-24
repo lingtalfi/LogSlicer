@@ -43,6 +43,16 @@ $lines = LogSlicer::create()
     ->getPage(2);
 ```
 
+Or if you need pagination:
+
+```php
+
+$slicer = LogSlicer::create()
+    ->file(__DIR__ . "/../log/php.err.log")
+    ->nbLinesPerPage(1000);
+$nbPages = $slicer->getNbPages();
+$lines = $slicer->getPage(2);
+```
 
 
 Concrete example
@@ -167,6 +177,10 @@ Dependencies
 
 History Log
 ------------------
+    
+- 1.1.0 -- 2016-12-24
+
+    - add getNbPages
     
 - 1.0.0 -- 2016-12-23
 
