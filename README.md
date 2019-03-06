@@ -15,7 +15,7 @@ Install
 
 Using the [uni tool](https://github.com/lingtalfi/universe-naive-importer)
 ```bash
-uni import LogSlicer
+uni import Ling/LogSlicer
 ```
 
 
@@ -93,7 +93,7 @@ Here is a testing code
 <?php
 
 
-use LogSlicer\LogSlicer;
+use Ling\LogSlicer\LogSlicer;
 
 require_once "bigbang.php";
 

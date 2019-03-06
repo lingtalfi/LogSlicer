@@ -1,10 +1,10 @@
 <?php
 
 
-namespace LogSlicer;
+namespace Ling\LogSlicer;
 
 
-use Bat\FileTool;
+use Ling\Bat\FileTool;
 
 
 /**
